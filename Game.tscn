@@ -55,7 +55,7 @@ shader = SubResource( 3 )
 
 [sub_resource type="PlaneMesh" id=14]
 material = ExtResource( 1 )
-size = Vector2( 300, 300 )
+size = Vector2( 600, 600 )
 subdivide_width = 128
 subdivide_depth = 128
 
@@ -71,4 +71,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.35349, 0 )
 mesh = SubResource( 14 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.992386, 0.123168, 0, -0.123168, 0.992386, 0, 10.4351, -17.4267 )
+transform = Transform( 1, 0, 0, 0, 0.992386, 0.123168, 0, -0.123168, 0.992386, 0, 15.8029, 54.4631 )
+far = 600.0
+
+[node name="OmniLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.658545, 0.752541, 0, -0.752541, -0.658545, 0, 82, 0 )
