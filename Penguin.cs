@@ -3,7 +3,7 @@ using System;
 
 public class Penguin : KinematicBody
 {
-    Vector3 Gravity = new Vector3(0, -9.8f, 0);
+    Vector3 Gravity = new Vector3(0, -40f, 0);
     public override void _Ready()
     {
     }

@@ -20,16 +20,16 @@ public class PenguinSpawner : Node
             var penguinInstance = Penguin.Instance<KinematicBody>();
 
             //TODO: Fix this, for some reason the penguins are not separating and thus causing each other to hit off of each other and fly off the map.
-            var tempTranslation = penguinInstance.Translation;
-            tempTranslation.x += 20;
-            tempTranslation.y = 60;
-            penguinInstance.Translation = tempTranslation;
 
             PenguinList.Add(penguinInstance);
         }
 
-        for (int i = 0; i < PenguinList.Count; i++)
+        for (int i = 0; i < 10; i++)
         {
+            var tempTranslation = PenguinList[i].Translation;
+            tempTranslation.x += 2 * i;
+            tempTranslation.y = 60;
+            PenguinList[i].Translation = tempTranslation;
             GetParent().CallDeferred("add_child", PenguinList[i]);
         }
     }
