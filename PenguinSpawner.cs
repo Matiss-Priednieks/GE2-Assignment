@@ -5,22 +5,19 @@ using System.Collections.Generic;
 public class PenguinSpawner : Node
 {
     PackedScene Penguin;
-    List<KinematicBody> PenguinList;
+    List<Penguin> PenguinList;
 
     int MaxPenugins = 100;
 
 
     public override void _Ready()
     {
-        PenguinList = new List<KinematicBody>();
+        PenguinList = new List<Penguin>();
 
         Penguin = (PackedScene)ResourceLoader.Load("res://Penguin.tscn");
         for (int i = 0; i < MaxPenugins; i++)
         {
-            var penguinInstance = Penguin.Instance<KinematicBody>();
-
-            //TODO: Fix this, for some reason the penguins are not separating and thus causing each other to hit off of each other and fly off the map.
-
+            var penguinInstance = Penguin.Instance<Penguin>();
             PenguinList.Add(penguinInstance);
         }
 
@@ -30,6 +27,7 @@ public class PenguinSpawner : Node
             tempTranslation.x += 2 * i;
             tempTranslation.y = 60;
             PenguinList[i].Translation = tempTranslation;
+            PenguinList[i].Penguins = PenguinList;
             GetParent().CallDeferred("add_child", PenguinList[i]);
         }
     }

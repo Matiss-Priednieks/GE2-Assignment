@@ -2,7 +2,6 @@
 
 [ext_resource path="res://new_noisetexture.tres" type="Texture" id=1]
 [ext_resource path="res://PenguinSpawner.cs" type="Script" id=2]
-[ext_resource path="res://Penguin.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 125, 15, 125 )
@@ -721,6 +720,9 @@ size = Vector2( 600, 600 )
 subdivide_width = 128
 subdivide_depth = 128
 
+[sub_resource type="BoxShape" id=130]
+extents = Vector3( 300, 300, 300 )
+
 [node name="Spatial" type="Spatial"]
 
 [node name="StaticBody" type="StaticBody" parent="."]
@@ -751,5 +753,8 @@ shadow_enabled = true
 [node name="Node" type="Node" parent="."]
 script = ExtResource( 2 )
 
-[node name="KinematicBody" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 41.3477, 0 )
+[node name="Ocean" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Ocean"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -300, 0 )
+shape = SubResource( 130 )
