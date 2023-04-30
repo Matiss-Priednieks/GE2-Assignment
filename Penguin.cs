@@ -5,30 +5,35 @@ using System.Collections.Generic;
 public class Penguin : KinematicBody
 {
     RandomNumberGenerator RNG = new RandomNumberGenerator();
+    AnimationPlayer Animator;
     Vector3 Gravity = new Vector3(0, -40f, 0);
     int Health = 100;
     int Hunger = 0;
     int Speed = 2;
+    bool Scared = false;
 
     Vector3 Direction = Vector3.Forward;
     public List<Penguin> Penguins;
     Tween Rotator;
-    int Distance = 2;
-    Timer DirectionTimer;
 
+    Timer DirectionTimer;
+    float LocalDelta;
+
+    bool Rotating = true;
     public override void _Ready()
     {
+        Animator = GetNode<AnimationPlayer>("Penguin-with-anim/AnimationPlayer");
         DirectionTimer = GetNode<Timer>("Timer");
-        Rotator = GetNode<Tween>("Rotate");
         RNG.Randomize();
         Hunger = RNG.RandiRange(0, 100);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(float delta)
+    public override void _PhysicsProcess(float delta)
     {
+        LocalDelta = delta;
         RotationDegrees = new Vector3(0, RotationDegrees.y, 0);
-        MoveAndCollide(Gravity * delta);
+        MoveAndCollide(Gravity * LocalDelta);
 
         if (Hunger >= 60)
         {
@@ -44,30 +49,38 @@ public class Penguin : KinematicBody
         }
         else
         {
-            Wander(delta);
+            Wander();
         }
+        MoveAndCollide(Direction * Speed * LocalDelta);
+
     }
 
-    public void Wander(float delta)
+    public void Wander()
     {
-        //look at and go to direction * distance - current position
-        MoveAndCollide(Direction * Speed * delta);
-        LookAt(Direction + Translation, Vector3.Up);
-        // var _targetRotation = new Quat(Vector3.Up, Direction);
-
-        // // smoothly interpolate between the current rotation and the target rotation
-        // Rotation = Rotation.Slerp(_targetRotation, 0.1f);
-
-        // // update the player's position
-        // Position = newPos;
+        Speed = 2;
+        Animator.Play("Walk-loop");
+        var localRotation = Rotation;
+        localRotation.y = Mathf.LerpAngle(localRotation.y, Mathf.Atan2(-Direction.x, -Direction.z), LocalDelta * 2);
+        Rotation = localRotation;
     }
     public void Hunt()
     {
 
     }
-    public void Run()
+    public void Run(Vector3 bearLocation)
     {
+        Speed = 6;
+        Direction = new Vector3(Translation.x - bearLocation.x, 0, Translation.z - bearLocation.z).Normalized();
+        var localRotation = Rotation;
+        localRotation.y = Mathf.LerpAngle(localRotation.y, Mathf.Atan2(-Direction.x, -Direction.z), LocalDelta * 2);
 
+        Rotation = localRotation;
+        Animator.PlaybackSpeed = 2;
+        Animator.Play("Walk-loop");
+    }
+    public void Idle()
+    {
+        Animator.Play("Idle");
     }
     public void Rest()
     {
@@ -81,21 +94,29 @@ public class Penguin : KinematicBody
 
     public void _on_Timer_timeout()
     {
-        NewDirection();
+        Hunger--;
+        if (!Scared)
+        {
+            NewDirection();
+        }
     }
     public void NewDirection()
     {
         RNG.Randomize();
         Direction = new Vector3(RNG.RandiRange(-1, 1), 0, RNG.RandiRange(-1, 1));
-        GD.Print(Direction);
+        Rotating = true;
     }
 
     public void _on_Area_area_entered(Area area)
     {
         if (area.Name == "Ocean")
         {
-            GD.Print("test");
             Gravity = new Vector3(0, -5f, 0);
+        }
+        if (area.Name == "PolarBear")
+        {
+            Scared = true;
+            Run(area.Translation);
         }
     }
 
@@ -103,8 +124,22 @@ public class Penguin : KinematicBody
     {
         if (area.Name == "Ocean")
         {
-            GD.Print("test2");
             Gravity = new Vector3(0, -40f, 0);
+        }
+        if (area.Name == "PolarBear")
+        {
+            Scared = false;
+        }
+    }
+
+    public void _on_Area_body_entered(KinematicBody body)
+    {
+        if (body is PolarBear bear)
+        {
+            //maybe send signal to bear?
+
+            GD.Print("Death");
+            this.QueueFree();
         }
     }
 }

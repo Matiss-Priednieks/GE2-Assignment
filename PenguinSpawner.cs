@@ -25,7 +25,7 @@ public class PenguinSpawner : Node
         {
             var tempTranslation = PenguinList[i].Translation;
             tempTranslation.x += 2 * i;
-            tempTranslation.y = 60;
+            tempTranslation.y = 100;
             PenguinList[i].Translation = tempTranslation;
             PenguinList[i].Penguins = PenguinList;
             GetParent().CallDeferred("add_child", PenguinList[i]);
