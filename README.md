@@ -12,5 +12,7 @@ ________________________________________________________________________________
 
 ## Polar Bear:
 
+The polar bear much like the penguin is also a kinematic body. It will start in a wandering state, which essentially means that it will walk in a random location until it senses a penguin. When it does it will run towards the penguin, it will catch up to it and eat it. The polar will spawn in with a full hunger bar, making it slow. Once the bar is depleted, the bear will enter a frenzy state where its movement speed will increase and will actively try to find penguins to satiate his hunger.
 
+________________________________________________________________________________________________________________________________________________________________
 
