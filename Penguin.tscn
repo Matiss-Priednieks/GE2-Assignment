@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Penguin.cs" type="Script" id=1]
 [ext_resource path="res://assets/models/Penguin-with-anim.glb" type="PackedScene" id=3]
+
+[sub_resource type="BoxShape" id=14]
+extents = Vector3( 0.6, 1.42489, 0.6 )
 
 [sub_resource type="BoxShape" id=13]
 extents = Vector3( 1, 2, 1 )
@@ -132,8 +135,14 @@ tracks/16/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2.70833, 1, 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 1, 2, 1 )
 
-[node name="KinematicBody" type="KinematicBody"]
+[node name="Penguin" type="KinematicBody"]
 script = ExtResource( 1 )
+
+[node name="Area2" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.678982, -2.01292 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Area2"]
+shape = SubResource( 14 )
 
 [node name="Area" type="Area" parent="."]
 
@@ -155,6 +164,8 @@ shape = SubResource( 2 )
 wait_time = 4.0
 autostart = true
 
+[connection signal="body_entered" from="Area2" to="." method="_on_Area2_body_entered"]
+[connection signal="body_exited" from="Area2" to="." method="_on_Area2_body_exited"]
 [connection signal="area_entered" from="Area" to="." method="_on_Area_area_entered"]
 [connection signal="area_exited" from="Area" to="." method="_on_Area_area_exited"]
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]

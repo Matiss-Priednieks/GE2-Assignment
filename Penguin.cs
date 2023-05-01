@@ -13,6 +13,7 @@ public class Penguin : KinematicBody
     int Speed = 2;
     bool Scared = false;
 
+    bool SearchingForLand = false;
     Vector3 Direction = Vector3.Forward;
     public List<Penguin> Penguins;
     Tween Rotator;
@@ -52,6 +53,10 @@ public class Penguin : KinematicBody
         else if (!Scared)
         {
             Wander();
+        }
+        if (SearchingForLand)
+        {
+            NewDirection();
         }
         MoveAndCollide(Direction * Speed * LocalDelta);
         CorrectRotation();
@@ -144,5 +149,20 @@ public class Penguin : KinematicBody
         var localRotation = Rotation;
         localRotation.y = Mathf.LerpAngle(localRotation.y, Mathf.Atan2(-Direction.x, -Direction.z), LocalDelta * 2);
         Rotation = localRotation;
+    }
+
+    public void _on_Area2_body_exited(PhysicsBody body)
+    {
+        if (body.Name == "ice")
+        {
+            SearchingForLand = true;
+        }
+    }
+    public void _on_Area2_body_entered(PhysicsBody body)
+    {
+        if (body.Name == "ice")
+        {
+            SearchingForLand = false;
+        }
     }
 }
