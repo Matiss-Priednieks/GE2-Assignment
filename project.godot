@@ -14,9 +14,17 @@ config/name="GE2-Assignment"
 run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
 
+[global]
+
+texture=false
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[mono]
+
+project/assembly_name="GE2-Assignment"
 
 [physics]
 
