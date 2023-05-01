@@ -16,3 +16,8 @@ The polar bear much like the penguin is also a kinematic body. It will start in 
 
 ________________________________________________________________________________________________________________________________________________________________
 
+## Water:
+
+For the water, we took inspiration from the following website "https://catlikecoding.com/unity/tutorials/flow/waves/", which is a tutorial for creating a simulation of waves on Unity. We took some of the concepts in this post and re-created them in GODOT to try and accurately depict the cold waters of the Arctic.
+
+________________________________________________________________________________________________________________________________________________________________
