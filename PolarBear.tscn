@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/models/polarbear/bear.glb" type="PackedScene" id=1]
 [ext_resource path="res://PolarBearScareArea.cs" type="Script" id=2]
@@ -6,16 +6,19 @@
 
 [sub_resource type="CapsuleShape" id=131]
 radius = 2.71846
-height = 2.65696
+height = 3.72791
 
 [sub_resource type="SphereShape" id=133]
 radius = 15.0
+
+[sub_resource type="BoxShape" id=134]
+extents = Vector3( 0.7, 0.7, 0.7 )
 
 [node name="PolarBear" type="KinematicBody"]
 script = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.69611, 0.116326 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.69611, -1.04234 )
 shape = SubResource( 131 )
 
 [node name="PolarBear" type="Area" parent="."]
@@ -28,10 +31,26 @@ shape = SubResource( 133 )
 [node name="bear" parent="." instance=ExtResource( 1 )]
 transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
 
+[node name="BoneAttachment" parent="bear/rig/Skeleton" index="0"]
+transform = Transform( 1, -1.79879e-07, -1.32047e-06, -1.33237e-06, -0.150629, -0.988597, -2.10899e-08, 0.988591, -0.150626, 0.14499, 1.72215, 1.70473 )
+
+[node name="BoneAttachment2" parent="bear/rig/Skeleton" index="1"]
+transform = Transform( 1, -1.79877e-07, -1.32046e-06, -1.33236e-06, -0.150628, -0.988597, -2.109e-08, 0.988591, -0.150626, -0.14499, 1.72215, 1.70473 )
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
 
+[node name="Area" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.41278 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+shape = SubResource( 134 )
+
 [connection signal="body_entered" from="PolarBear" to="." method="_on_PolarBear_body_entered"]
 [connection signal="body_exited" from="PolarBear" to="." method="_on_PolarBear_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]
+
+[editable path="bear"]

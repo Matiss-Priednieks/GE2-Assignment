@@ -601,19 +601,18 @@ background_color = Color( 0, 0.623529, 1, 1 )
 [node name="Water" type="MeshInstance" parent="."]
 mesh = SubResource( 14 )
 
+[node name="OceanArea" type="Area" parent="Water"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Water/OceanArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -300, 0 )
+shape = SubResource( 130 )
+
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -3.78552e-08, 0.5, -0.866025, 2.18557e-08, 0.866025, 0.5, 1, 0, -4.37114e-08, -85.1199, 39.366, -3.3803 )
-fov = 62.5
+transform = Transform( -2.35035e-08, 0.843138, -0.537697, 3.68548e-08, 0.537697, 0.843138, 1, 1.95399e-14, -4.37114e-08, -63.5854, 62.7603, -3.3803 )
 far = 600.0
 
 [node name="PenuginSpawner" type="Node" parent="."]
 script = ExtResource( 2 )
-
-[node name="OceanArea" type="Area" parent="."]
-
-[node name="CollisionShape" type="CollisionShape" parent="OceanArea"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -300, 0 )
-shape = SubResource( 130 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.982196, 0.187861, 0, -0.187861, 0.982196, 0, 85.1698, 61.4299 )
@@ -621,7 +620,7 @@ transform = Transform( 1, 0, 0, 0, 0.982196, 0.187861, 0, -0.187861, 0.982196, 0
 [node name="iceberg" parent="." instance=ExtResource( 4 )]
 
 [node name="PolarBear" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0140953, 5.09818, 0.81498 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0140953, 5.09818, -62.1669 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 139 )

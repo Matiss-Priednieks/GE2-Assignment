@@ -16,8 +16,9 @@ public class PolarBear : KinematicBody
     Timer DirectionTimer;
     float LocalDelta;
     List<Penguin> HuntList;
-    Vector3 Target = Vector3.Zero;
-
+    Penguin Target;
+    int TargetIndex;
+    bool SearchForLand = false;
     bool Rotating = true;
     public override void _Ready()
     {
@@ -29,11 +30,14 @@ public class PolarBear : KinematicBody
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(float delta)
     {
+        RNG.Randomize();
         LocalDelta = delta;
         // RotationDegrees = new Vector3(0, RotationDegrees.y, 0);
         MoveAndCollide(Gravity * LocalDelta);
 
         MoveAndCollide(Direction * Speed * LocalDelta);
+        CorrectRotation();
+
         if (Hunting)
         {
             Hunt();
@@ -42,39 +46,52 @@ public class PolarBear : KinematicBody
         {
             Wander();
         }
+        if (SearchForLand)
+        {
+            NewDirection();
+        }
     }
 
     public void Wander()
     {
         Speed = 3;
-        var localRotation = Rotation;
-        localRotation.y = Mathf.LerpAngle(localRotation.y, Mathf.Atan2(-Direction.x, -Direction.z), LocalDelta * 2);
-        Rotation = localRotation;
     }
     public void Hunt()
     {
         Hunting = true;
-        Speed = 5;
-
-        var localRotation = Rotation;
-        localRotation.y = Mathf.LerpAngle(localRotation.y, Mathf.Atan2(-Direction.x, -Direction.z), LocalDelta * 2);
-        Rotation = localRotation;
-
-
-        //TODO: This code needs to account for when a penguin is caught.
-        if (Target == Vector3.Zero)
+        Speed = 20;
+        if (Target == null && HuntList.Count > 0)
         {
-            Target = HuntList[RNG.RandiRange(0, HuntList.Count - 1)].Translation;
+            Target = HuntList[RNG.RandiRange(0, HuntList.Count - 1)];
+        }
+        else if (Target != null)
+        {
+            Direction = (Target.Translation - Translation).Normalized();
         }
         else
         {
-            // GD.Print(Target);
+            Hunting = false;
         }
 
 
-        Direction = new Vector3(Translation.x - Target.x, 0, Translation.y - Target.y).Normalized();
 
-        // GD.Print(HuntList[0].Translation);
+    }
+
+    public void _on_Area_body_exited(StaticBody ice)
+    {
+        if (ice.Name == "ice")
+        {
+            GD.Print("Searching");
+            SearchForLand = true;
+        }
+    }
+    public void _on_Area_body_entered(StaticBody ice)
+    {
+        if (ice.Name == "ice")
+        {
+            GD.Print("Not Searching");
+            SearchForLand = false;
+        }
     }
 
     public void Idle()
@@ -102,15 +119,27 @@ public class PolarBear : KinematicBody
         if (body is Penguin penguin)
         {
             HuntList.Add(penguin);
-            Hunt();
+            Hunting = true;
         }
     }
     public void _on_PolarBear_body_exited(KinematicBody body)
     {
         if (body is Penguin penguin)
         {
-
+            HuntList.Remove(penguin);
+            Target = null;
         }
     }
 
+    public void HuntSuccess()
+    {
+        Target = null;
+    }
+
+    public void CorrectRotation()
+    {
+        var localRotation = Rotation;
+        localRotation.y = Mathf.LerpAngle(localRotation.y, Mathf.Atan2(-Direction.x, -Direction.z), LocalDelta * 2);
+        Rotation = localRotation;
+    }
 }

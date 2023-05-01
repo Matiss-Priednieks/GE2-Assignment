@@ -25,6 +25,7 @@ public class PenguinSpawner : Node
         {
             var tempTranslation = PenguinList[i].Translation;
             tempTranslation.x += 2 * i;
+            tempTranslation.z += 3 * i;
             tempTranslation.y = 100;
             PenguinList[i].Translation = tempTranslation;
             PenguinList[i].Penguins = PenguinList;

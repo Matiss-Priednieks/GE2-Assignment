@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Penguin : KinematicBody
 {
+    [Signal] public delegate void Death();
     RandomNumberGenerator RNG = new RandomNumberGenerator();
     AnimationPlayer Animator;
     Vector3 Gravity = new Vector3(0, -40f, 0);
@@ -22,6 +23,7 @@ public class Penguin : KinematicBody
     bool Rotating = true;
     public override void _Ready()
     {
+        this.Connect("Death", GetNode<KinematicBody>("../PolarBear"), "HuntSuccess");
         Animator = GetNode<AnimationPlayer>("Penguin-with-anim/AnimationPlayer");
         DirectionTimer = GetNode<Timer>("Timer");
         RNG.Randomize();
@@ -47,21 +49,20 @@ public class Penguin : KinematicBody
         {
             Heal();
         }
-        else
+        else if (!Scared)
         {
             Wander();
         }
         MoveAndCollide(Direction * Speed * LocalDelta);
+        CorrectRotation();
 
     }
 
     public void Wander()
     {
         Speed = 2;
+        Animator.PlaybackSpeed = 1;
         Animator.Play("Walk-loop");
-        var localRotation = Rotation;
-        localRotation.y = Mathf.LerpAngle(localRotation.y, Mathf.Atan2(-Direction.x, -Direction.z), LocalDelta * 2);
-        Rotation = localRotation;
     }
     public void Hunt()
     {
@@ -69,12 +70,8 @@ public class Penguin : KinematicBody
     }
     public void Run(Vector3 bearLocation)
     {
-        Speed = 6;
+        Speed = 4;
         Direction = new Vector3(Translation.x - bearLocation.x, 0, Translation.z - bearLocation.z).Normalized();
-        var localRotation = Rotation;
-        localRotation.y = Mathf.LerpAngle(localRotation.y, Mathf.Atan2(-Direction.x, -Direction.z), LocalDelta * 2);
-
-        Rotation = localRotation;
         Animator.PlaybackSpeed = 2;
         Animator.Play("Walk-loop");
     }
@@ -111,7 +108,7 @@ public class Penguin : KinematicBody
     {
         if (area.Name == "Ocean")
         {
-            Gravity = new Vector3(0, -5f, 0);
+            Gravity = new Vector3(0, -0.5f, 0);
         }
         if (area.Name == "PolarBear")
         {
@@ -136,10 +133,16 @@ public class Penguin : KinematicBody
     {
         if (body is PolarBear bear)
         {
-            //maybe send signal to bear?
-
+            EmitSignal("Death");
             GD.Print("Death");
             this.QueueFree();
         }
+    }
+
+    public void CorrectRotation()
+    {
+        var localRotation = Rotation;
+        localRotation.y = Mathf.LerpAngle(localRotation.y, Mathf.Atan2(-Direction.x, -Direction.z), LocalDelta * 2);
+        Rotation = localRotation;
     }
 }
