@@ -1,10 +1,12 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://new_noisetexture.tres" type="Texture" id=1]
 [ext_resource path="res://PenguinSpawner.cs" type="Script" id=2]
 [ext_resource path="res://assets/models/ICE/VoronoiTex.png" type="Texture" id=3]
 [ext_resource path="res://assets/models/ICE/iceberg.tscn" type="PackedScene" id=4]
 [ext_resource path="res://PolarBear.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Game.cs" type="Script" id=6]
+[ext_resource path="res://assets/models/fish/SchoolOfFish.tscn" type="PackedScene" id=7]
 
 [sub_resource type="VisualShaderNodeInput" id=44]
 output_port_for_preview = 0
@@ -447,7 +449,7 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -291.019, -207.43 )
+graph_offset = Vector2( -712.608, -94.2136 )
 nodes/vertex/0/position = Vector2( 2560, 80 )
 nodes/vertex/38/node = SubResource( 61 )
 nodes/vertex/38/position = Vector2( -940, 520 )
@@ -571,6 +573,7 @@ nodes/fragment/connections = PoolIntArray( 7, 0, 8, 1, 10, 0, 9, 0, 9, 0, 3, 0, 
 
 [sub_resource type="ShaderMaterial" id=16]
 resource_local_to_scene = true
+render_priority = 1
 shader = SubResource( 8 )
 shader_param/Amplitude = 2.0
 shader_param/Wavelength = 70.0
@@ -597,6 +600,7 @@ background_sky = SubResource( 138 )
 background_color = Color( 0, 0.623529, 1, 1 )
 
 [node name="Spatial" type="Spatial"]
+script = ExtResource( 6 )
 
 [node name="Water" type="MeshInstance" parent="."]
 mesh = SubResource( 14 )
@@ -608,19 +612,49 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -300, 0 )
 shape = SubResource( 130 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -2.35035e-08, 0.843138, -0.537697, 3.68548e-08, 0.537697, 0.843138, 1, 1.95399e-14, -4.37114e-08, -63.5854, 62.7603, -3.3803 )
-far = 600.0
+transform = Transform( -2.35035e-08, 0.843138, -0.537697, 3.68548e-08, 0.537697, 0.843138, 1, -2.30926e-14, -4.37114e-08, -63.5854, 62.7603, -3.3803 )
+fov = 90.0
+far = 1000.0
 
 [node name="PenuginSpawner" type="Node" parent="."]
 script = ExtResource( 2 )
 
+[node name="Timer" type="Timer" parent="PenuginSpawner"]
+wait_time = 2.0
+autostart = true
+
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.982196, 0.187861, 0, -0.187861, 0.982196, 0, 85.1698, 61.4299 )
+light_color = Color( 0.909804, 0.956863, 1, 1 )
+shadow_enabled = true
 
 [node name="iceberg" parent="." instance=ExtResource( 4 )]
 
 [node name="PolarBear" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0140953, 5.09818, -62.1669 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35.1168, 5.09818, 10.7972 )
+
+[node name="Skeleton" parent="PolarBear/smoothPolarBear" index="0"]
+bones/2/bound_children = [ NodePath("BoneAttachment") ]
+
+[node name="BoneAttachment" parent="PolarBear/smoothPolarBear/Skeleton" index="0"]
+transform = Transform( 1, 5.68434e-13, 9.53677e-07, 9.34087e-07, -0.201653, -0.979456, 1.92311e-07, 0.979456, -0.201653, -4.453e-13, 2.16101, 1.83514 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 139 )
+
+[node name="BearChecker" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="FishSchool1" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0 )
+
+[node name="FishSchool2" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, 30, -15, -5 )
+
+[connection signal="timeout" from="PenuginSpawner/Timer" to="PenuginSpawner" method="_on_Timer_timeout"]
+[connection signal="timeout" from="BearChecker" to="." method="_on_BearChecker_timeout"]
+
+[editable path="iceberg"]
+[editable path="PolarBear"]
+[editable path="PolarBear/smoothPolarBear"]

@@ -9,7 +9,7 @@ public class Penguin : KinematicBody
     AnimationPlayer Animator;
     Vector3 Gravity = new Vector3(0, -40f, 0);
     int Health = 100;
-    int Hunger = 0;
+    int Hunger = 100;
     int Speed = 2;
     bool Scared = false;
 
@@ -18,17 +18,42 @@ public class Penguin : KinematicBody
     public List<Penguin> Penguins;
     Tween Rotator;
 
+    KinematicBody PolarBearReference;
     Timer DirectionTimer;
     float LocalDelta;
+    bool SignalConnected = false;
 
     bool Rotating = true;
     public override void _Ready()
     {
-        this.Connect("Death", GetNode<KinematicBody>("../PolarBear"), "HuntSuccess");
         Animator = GetNode<AnimationPlayer>("Penguin-with-anim/AnimationPlayer");
         DirectionTimer = GetNode<Timer>("Timer");
         RNG.Randomize();
         Hunger = RNG.RandiRange(0, 100);
+        NewDirection();
+    }
+
+    public override void _Process(float delta)
+    {
+        var bear = 0;
+        for (int i = 0; i < GetParent().GetParent().GetChildCount(); i++)
+        {
+            if (GetParent().GetParent().GetChild(i).Name.Contains("PolarBear"))
+            {
+                bear++;
+            }
+        }
+        if (bear < 1)
+        {
+            SignalConnected = false;
+        }
+        else if (!SignalConnected)
+        {
+            PolarBearReference = GetNode<KinematicBody>("../../PolarBear");
+            this.Connect("Death", PolarBearReference, "HuntSuccess");
+            SignalConnected = true;
+        }
+
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,7 +63,7 @@ public class Penguin : KinematicBody
         RotationDegrees = new Vector3(0, RotationDegrees.y, 0);
         MoveAndCollide(Gravity * LocalDelta);
 
-        if (Hunger >= 60)
+        if (Hunger <= 60)
         {
             Hunt();
         }
@@ -58,6 +83,7 @@ public class Penguin : KinematicBody
         {
             NewDirection();
         }
+
         MoveAndCollide(Direction * Speed * LocalDelta);
         CorrectRotation();
 
@@ -66,23 +92,32 @@ public class Penguin : KinematicBody
     public void Wander()
     {
         Speed = 2;
-        Animator.PlaybackSpeed = 1;
-        Animator.Play("Walk-loop");
+        if (Direction == Vector3.Zero)
+        {
+            Animator.PlaybackSpeed = 0.6f;
+            Idle();
+        }
+        else
+        {
+            Animator.PlaybackSpeed = 1;
+            Animator.Play("Walk-loop");
+        }
     }
     public void Hunt()
     {
-
     }
     public void Run(Vector3 bearLocation)
     {
-        Speed = 4;
-        Direction = new Vector3(Translation.x - bearLocation.x, 0, Translation.z - bearLocation.z).Normalized();
+        Speed = 6;
+        // GD.Print("Scared");
+        Direction = (Translation - bearLocation).Normalized();
+        Direction.y = 0;
         Animator.PlaybackSpeed = 2;
         Animator.Play("Walk-loop");
     }
     public void Idle()
     {
-        Animator.Play("Idle");
+        Animator.Play("Idle-loop");
     }
     public void Rest()
     {
@@ -134,13 +169,17 @@ public class Penguin : KinematicBody
         }
     }
 
+
     public void _on_Area_body_entered(KinematicBody body)
     {
         if (body is PolarBear bear)
         {
             EmitSignal("Death");
-            GD.Print("Death");
             this.QueueFree();
+        }
+        if (body is Penguin pengu)
+        {
+            Direction = -Direction;
         }
     }
 
@@ -151,18 +190,32 @@ public class Penguin : KinematicBody
         Rotation = localRotation;
     }
 
+    public void _on_Area4_body_exited(PhysicsBody body)
+    {
+        if (body.Name == "ice")
+        {
+            Direction = -Direction;
+        }
+    }
+    public void _on_Area3_body_exited(PhysicsBody body)
+    {
+        if (body.Name == "ice")
+        {
+            Direction = -Direction;
+        }
+    }
     public void _on_Area2_body_exited(PhysicsBody body)
     {
         if (body.Name == "ice")
         {
-            SearchingForLand = true;
+            Direction = -Direction;
         }
     }
     public void _on_Area2_body_entered(PhysicsBody body)
     {
         if (body.Name == "ice")
         {
-            SearchingForLand = false;
+
         }
     }
 }

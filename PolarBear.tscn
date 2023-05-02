@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://assets/models/polarbear/bear.glb" type="PackedScene" id=1]
+[ext_resource path="res://Alkatra[wght].ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://PolarBearScareArea.cs" type="Script" id=2]
 [ext_resource path="res://PolarBear.cs" type="Script" id=3]
+[ext_resource path="res://smoothPolarBear.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape" id=131]
 radius = 2.71846
@@ -11,8 +12,21 @@ height = 3.72791
 [sub_resource type="SphereShape" id=133]
 radius = 15.0
 
-[sub_resource type="BoxShape" id=134]
-extents = Vector3( 0.7, 0.7, 0.7 )
+[sub_resource type="SphereShape" id=137]
+radius = 0.9
+
+[sub_resource type="SphereShape" id=138]
+radius = 0.9
+
+[sub_resource type="SphereShape" id=136]
+radius = 0.9
+
+[sub_resource type="DynamicFont" id=139]
+size = 300
+outline_size = 15
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
 
 [node name="PolarBear" type="KinematicBody"]
 script = ExtResource( 3 )
@@ -28,29 +42,53 @@ script = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.71686, 0 )
 shape = SubResource( 133 )
 
-[node name="bear" parent="." instance=ExtResource( 1 )]
-transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
+[node name="smoothPolarBear" parent="." instance=ExtResource( 4 )]
 
-[node name="BoneAttachment" parent="bear/rig/Skeleton" index="0"]
-transform = Transform( 1, -1.79879e-07, -1.32047e-06, -1.33237e-06, -0.150629, -0.988597, -2.10899e-08, 0.988591, -0.150626, 0.14499, 1.72215, 1.70473 )
-
-[node name="BoneAttachment2" parent="bear/rig/Skeleton" index="1"]
-transform = Transform( 1, -1.79877e-07, -1.32046e-06, -1.33236e-06, -0.150628, -0.988597, -2.109e-08, 0.988591, -0.150626, -0.14499, 1.72215, 1.70473 )
+[node name="BoneAttachment" parent="smoothPolarBear/Skeleton" index="0"]
+transform = Transform( 1, 1.08002e-12, 9.53677e-07, 9.23728e-07, -0.248643, -0.968595, 2.37123e-07, 0.968595, -0.248643, 1.95539e-13, 2.73376, 1.37622 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 7.0
 autostart = true
 
 [node name="Area" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.41278 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.447137, -6.29315 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
-shape = SubResource( 134 )
+shape = SubResource( 137 )
+
+[node name="Area2" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.42134, -0.447137, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Area2"]
+shape = SubResource( 138 )
+
+[node name="Area3" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.46086, -0.447137, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Area3"]
+shape = SubResource( 136 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.964925, 0.262526, 0, -0.262526, 0.964925, 0, 7.39756, 0.65713 )
+far = 1000.0
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0 )
+billboard = 1
+render_priority = 2
+outline_render_priority = 1
+outline_modulate = Color( 0.811765, 0.588235, 0.168627, 1 )
+text = "FOOD"
+font = SubResource( 139 )
 
 [connection signal="body_entered" from="PolarBear" to="." method="_on_PolarBear_body_entered"]
 [connection signal="body_exited" from="PolarBear" to="." method="_on_PolarBear_body_exited"]
+[connection signal="animation_finished" from="smoothPolarBear/Skeleton/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]
+[connection signal="body_exited" from="Area2" to="." method="_on_Area2_body_exited"]
+[connection signal="body_exited" from="Area3" to="." method="_on_Area3_body_exited"]
 
-[editable path="bear"]
+[editable path="smoothPolarBear"]

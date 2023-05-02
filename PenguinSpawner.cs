@@ -12,6 +12,7 @@ public class PenguinSpawner : Node
 
     public override void _Ready()
     {
+        GD.Randomize();
         PenguinList = new List<Penguin>();
 
         Penguin = (PackedScene)ResourceLoader.Load("res://Penguin.tscn");
@@ -24,12 +25,14 @@ public class PenguinSpawner : Node
         for (int i = 0; i < 10; i++)
         {
             var tempTranslation = PenguinList[i].Translation;
-            tempTranslation.x += 2 * i;
-            tempTranslation.z += 3 * i;
-            tempTranslation.y = 100;
+            tempTranslation.x += (float)GD.RandRange(-5, 3) * (i);
+            tempTranslation.z += (float)GD.RandRange(-5, 3) * (i);
+            tempTranslation.y = 20;
             PenguinList[i].Translation = tempTranslation;
             PenguinList[i].Penguins = PenguinList;
-            GetParent().CallDeferred("add_child", PenguinList[i]);
+            CallDeferred("add_child", PenguinList[i]);
+            MaxPenugins--;
+            PenguinList.RemoveAt(i);
         }
     }
 
@@ -37,5 +40,26 @@ public class PenguinSpawner : Node
     public override void _Process(float delta)
     {
 
+    }
+    public void _on_Timer_timeout()
+    {
+        if (GetChildren().Count < 20)
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                var penguinInstance = Penguin.Instance<Penguin>();
+                PenguinList.Add(penguinInstance);
+                GD.Randomize();
+                var tempTranslation = PenguinList[i].Translation;
+                tempTranslation.x += (float)GD.RandRange(-50, 30);
+                tempTranslation.z += (float)GD.RandRange(-50, 30);
+                tempTranslation.y = 20;
+                PenguinList[i].Translation = tempTranslation;
+                PenguinList[i].Penguins = PenguinList;
+                CallDeferred("add_child", PenguinList[i]);
+                MaxPenugins--;
+                PenguinList.RemoveAt(i);
+            }
+        }
     }
 }
