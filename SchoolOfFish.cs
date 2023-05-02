@@ -20,21 +20,20 @@ public class SchoolOfFish : Spatial
     }
     public override void _Process(float delta)
     {
-        for (int i = 0; i < FishList.Count; i++)
-        {
-            if (FishList[i].Dead)
-            {
-                FishList.Remove(FishList[i]);
-                FishList[i].QueueFree();
-            }
-        }
+
     }
 
     public void FishDied(Fish deadfish)
     {
-        if (FishList.Contains(deadfish))
+        for (int i = 0; i < FishList.Count; i++)
         {
-            deadfish.Dead = true;
+            if (FishList[i] == deadfish)
+            {
+                GD.Print("Fish dead");
+                deadfish.Dead = true;
+                FishList.Remove(deadfish);
+                deadfish.QueueFree();
+            }
         }
     }
 }
