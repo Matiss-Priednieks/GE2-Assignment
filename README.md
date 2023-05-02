@@ -13,9 +13,10 @@ Polar bear model made and animated in blender
 
 # Voxel Prototype using gdscript:
 Some experimenting by Peter as he knows gdscript better then c#
-Can be found in voxel_game branch, most of the unique assets are in voxel_stuff folder in godot
 
+Can be found in voxel_game branch, most of the unique assets are in voxel_stuff folder in godot
 Created voxel models of penguin and polar bear using MagicaVoxel, which is a super easy voxel modeling tool, imported models to blender to animate them:
+
 Animations: Idle, walk_loop, run_loop, eat_loop, swim_loop, attack
 
 ![Recording 2023-05-02 at 23 03 16](https://user-images.githubusercontent.com/56588308/235795991-65c31fa5-9a09-4dc2-90c8-ea5a5feb31fc.gif) ![Recording 2023-05-02 at 23 06 15](https://user-images.githubusercontent.com/56588308/235796214-674f5a01-2d91-45c8-b7d1-b193572e526c.gif)
