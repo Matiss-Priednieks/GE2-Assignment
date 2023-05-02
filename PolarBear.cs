@@ -23,7 +23,7 @@ public class PolarBear : KinematicBody
     bool SearchForLand, Attacking = false;
     bool Rotating = true;
 
-    int Hunger = 100;
+    int Hunger = 50;
     Label3D HungerLabel;
     public override void _Ready()
     {

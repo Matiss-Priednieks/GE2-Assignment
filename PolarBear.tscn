@@ -45,7 +45,7 @@ shape = SubResource( 133 )
 [node name="smoothPolarBear" parent="." instance=ExtResource( 4 )]
 
 [node name="BoneAttachment" parent="smoothPolarBear/Skeleton" index="0"]
-transform = Transform( 1, 1.08002e-12, 9.53677e-07, 9.23728e-07, -0.248643, -0.968595, 2.37123e-07, 0.968595, -0.248643, 1.95539e-13, 2.73376, 1.37622 )
+transform = Transform( 1, 5.68434e-13, 9.53677e-07, 9.34087e-07, -0.201653, -0.979456, 1.92311e-07, 0.979456, -0.201653, -4.453e-13, 2.16101, 1.83514 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 7.0

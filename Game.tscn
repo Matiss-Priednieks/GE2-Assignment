@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://new_noisetexture.tres" type="Texture" id=1]
 [ext_resource path="res://PenguinSpawner.cs" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://PolarBear.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Game.cs" type="Script" id=6]
 [ext_resource path="res://assets/models/fish/SchoolOfFish.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/Y2Mate.is - King Dedede's Theme [Brawl] - Super Smash Bros. Ultimate-hPZm4Px-zYg-160k-1656850022350.mp3" type="AudioStream" id=8]
 
 [sub_resource type="VisualShaderNodeInput" id=44]
 output_port_for_preview = 0
@@ -449,7 +450,7 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -712.608, -94.2136 )
+graph_offset = Vector2( -551.224, -211.515 )
 nodes/vertex/0/position = Vector2( 2560, 80 )
 nodes/vertex/38/node = SubResource( 61 )
 nodes/vertex/38/position = Vector2( -940, 520 )
@@ -633,12 +634,6 @@ shadow_enabled = true
 [node name="PolarBear" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35.1168, 5.09818, 10.7972 )
 
-[node name="Skeleton" parent="PolarBear/smoothPolarBear" index="0"]
-bones/2/bound_children = [ NodePath("BoneAttachment") ]
-
-[node name="BoneAttachment" parent="PolarBear/smoothPolarBear/Skeleton" index="0"]
-transform = Transform( 1, 5.68434e-13, 9.53677e-07, 9.34087e-07, -0.201653, -0.979456, 1.92311e-07, 0.979456, -0.201653, -4.453e-13, 2.16101, 1.83514 )
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 139 )
 
@@ -647,10 +642,15 @@ wait_time = 10.0
 autostart = true
 
 [node name="FishSchool1" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0 )
+transform = Transform( 1, 0, 0, 0, 0.996195, 0.0871557, 0, -0.0871557, 0.996195, 0, -15, 0 )
 
 [node name="FishSchool2" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, 30, -15, -5 )
+transform = Transform( 0.8, 0, 0, 0, 0.794037, -0.0974955, 0, 0.0974955, 0.794037, 0, -20.736, 0 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -15.0
+autoplay = true
 
 [connection signal="timeout" from="PenuginSpawner/Timer" to="PenuginSpawner" method="_on_Timer_timeout"]
 [connection signal="timeout" from="BearChecker" to="." method="_on_BearChecker_timeout"]
@@ -658,3 +658,5 @@ transform = Transform( 1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, 3
 [editable path="iceberg"]
 [editable path="PolarBear"]
 [editable path="PolarBear/smoothPolarBear"]
+[editable path="FishSchool1"]
+[editable path="FishSchool2"]

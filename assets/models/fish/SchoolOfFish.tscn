@@ -5,6 +5,8 @@
 [ext_resource path="res://assets/models/fish/Pivot.cs" type="Script" id=3]
 
 [sub_resource type="SphereMesh" id=1]
+radius = 2.0
+height = 4.0
 
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 1 )
@@ -13,8 +15,9 @@ script = ExtResource( 1 )
 script = ExtResource( 3 )
 
 [node name="Target" type="Spatial" parent="Pivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -110 )
 script = ExtResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Pivot/Target"]
+visible = false
 mesh = SubResource( 1 )

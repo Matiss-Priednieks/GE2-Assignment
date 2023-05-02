@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "KJXLYjC6ORi6hqvyFmrq661FaSWRif7TJVRVNHZGALseRfNpLDBA0pYnurp01Q7KusnE+9Ljn09NXnAYhMfDiw==",
+  "dgSpecHash": "jwt7H+1wqcr7RGUPjoPWMpGqybgecyax7ghCMbCCAcEkzUMa2gMF5Z9ZpUA/xIa3gCxeQDsfqYD5ciW7oh9FMQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Matiss\\Documents\\GE2-Assignment\\GE2-Assignment.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/gurki/Desktop/FYP/GE2-Assignment/GE2-Assignment.csproj",
+  "expectedPackageFiles": [
+    "/home/gurki/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.2/microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "/home/gurki/.nuget/packages/microsoft.netframework.referenceassemblies.net472/1.0.2/microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
+  ],
   "logs": []
 }
