@@ -1,8 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://SchoolOfFish.cs" type="Script" id=1]
-[ext_resource path="res://assets/models/fish/Target.cs" type="Script" id=2]
-[ext_resource path="res://assets/models/fish/Pivot.cs" type="Script" id=3]
+[ext_resource path="res://Target.cs" type="Script" id=2]
+[ext_resource path="res://Pivot.cs" type="Script" id=3]
+
 
 [sub_resource type="SphereMesh" id=1]
 radius = 2.0
