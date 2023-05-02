@@ -2,7 +2,8 @@
 Penguins:
 We're Here to Commit Arson
 
-Polar bear model made and animated in blender:
+Polar bear model made and animated in blender
+
 ![image](https://user-images.githubusercontent.com/56588308/235794012-6559d26b-c7c3-4822-aa4e-01ac41db0d6b.png)
 
 
