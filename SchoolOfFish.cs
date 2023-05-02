@@ -20,7 +20,16 @@ public class SchoolOfFish : Spatial
     }
     public override void _Process(float delta)
     {
-
+        if (FishList.Count < 5)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                var fishInstance = FishScene.Instance<Fish>();
+                fishInstance.Translation = new Vector3(i * Mathf.Pi, 0, i * Mathf.Pi);
+                AddChild(fishInstance);
+                FishList.Add(fishInstance);
+            }
+        }
     }
 
     public void FishDied(Fish deadfish)
