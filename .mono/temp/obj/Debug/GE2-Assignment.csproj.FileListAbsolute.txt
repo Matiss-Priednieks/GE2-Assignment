@@ -16,3 +16,12 @@ C:/Users/Matiss/Documents/GE2-Assignment/.mono/temp/obj/Debug/GE2-Assignment.pdb
 /home/gurki/Desktop/FYP/GE2-Assignment/.mono/temp/obj/Debug/GE2-Assignment.csproj.CoreCompileInputs.cache
 /home/gurki/Desktop/FYP/GE2-Assignment/.mono/temp/obj/Debug/GE2-Assignment.dll
 /home/gurki/Desktop/FYP/GE2-Assignment/.mono/temp/obj/Debug/GE2-Assignment.pdb
+C:\Users\Peter\Documents\4thYear\GameEngines2\project2\GE2-Assignment\.mono\temp\bin\Debug\GE2-Assignment.dll
+C:\Users\Peter\Documents\4thYear\GameEngines2\project2\GE2-Assignment\.mono\temp\bin\Debug\GE2-Assignment.pdb
+C:\Users\Peter\Documents\4thYear\GameEngines2\project2\GE2-Assignment\.mono\temp\obj\Debug\GE2-Assignment.csproj.AssemblyReference.cache
+C:\Users\Peter\Documents\4thYear\GameEngines2\project2\GE2-Assignment\.mono\temp\obj\Debug\GE2-Assignment.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Peter\Documents\4thYear\GameEngines2\project2\GE2-Assignment\.mono\temp\obj\Debug\GE2-Assignment.AssemblyInfoInputs.cache
+C:\Users\Peter\Documents\4thYear\GameEngines2\project2\GE2-Assignment\.mono\temp\obj\Debug\GE2-Assignment.AssemblyInfo.cs
+C:\Users\Peter\Documents\4thYear\GameEngines2\project2\GE2-Assignment\.mono\temp\obj\Debug\GE2-Assignment.csproj.CoreCompileInputs.cache
+C:\Users\Peter\Documents\4thYear\GameEngines2\project2\GE2-Assignment\.mono\temp\obj\Debug\GE2-Assignment.dll
+C:\Users\Peter\Documents\4thYear\GameEngines2\project2\GE2-Assignment\.mono\temp\obj\Debug\GE2-Assignment.pdb

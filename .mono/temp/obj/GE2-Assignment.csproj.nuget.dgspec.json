@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/gurki/Desktop/FYP/GE2-Assignment/GE2-Assignment.csproj": {}
+    "C:\\Users\\Peter\\Documents\\4thYear\\GameEngines2\\project2\\GE2-Assignment\\GE2-Assignment.csproj": {}
   },
   "projects": {
-    "/home/gurki/Desktop/FYP/GE2-Assignment/GE2-Assignment.csproj": {
+    "C:\\Users\\Peter\\Documents\\4thYear\\GameEngines2\\project2\\GE2-Assignment\\GE2-Assignment.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/gurki/Desktop/FYP/GE2-Assignment/GE2-Assignment.csproj",
+        "projectUniqueName": "C:\\Users\\Peter\\Documents\\4thYear\\GameEngines2\\project2\\GE2-Assignment\\GE2-Assignment.csproj",
         "projectName": "GE2-Assignment",
-        "projectPath": "/home/gurki/Desktop/FYP/GE2-Assignment/GE2-Assignment.csproj",
-        "packagesPath": "/home/gurki/.nuget/packages/",
-        "outputPath": "/home/gurki/Desktop/FYP/GE2-Assignment/.mono/temp/obj/",
+        "projectPath": "C:\\Users\\Peter\\Documents\\4thYear\\GameEngines2\\project2\\GE2-Assignment\\GE2-Assignment.csproj",
+        "packagesPath": "C:\\Users\\Peter\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Peter\\Documents\\4thYear\\GameEngines2\\project2\\GE2-Assignment\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/gurki/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Peter\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net472"
@@ -41,11 +41,11 @@
             "Microsoft.NETFramework.ReferenceAssemblies": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[1.0.2, )",
+              "version": "[1.0.3, )",
               "autoReferenced": true
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.113/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }
