@@ -2,12 +2,18 @@
 Penguins:
 We're Here to Commit Arson
 
+# Models
+
 Polar bear model made and animated in blender
 
-Polar bear was using similar techique to this example video, getting a rough shape from extruding a single node with a skin modifer then using sculpting workspace to
-add more detail. Colored using a shader and color pattele grid to paint on indivial vertexs.
+Model was made using similar techique to this example video, getting a rough shape from extruding a single node with a skin modifer then using sculpting workspace to
+add more detail. Colored using a shader and color pattele grid to paint on indivial vertexs. Added armature with automatic weight painting and then animated
+https://www.youtube.com/watch?v=DAAwy_l4jw4&t=1188s&ab_channel=JoeyCarlino
 
 ![image](https://user-images.githubusercontent.com/56588308/235794012-6559d26b-c7c3-4822-aa4e-01ac41db0d6b.png)
+
+- Fish is a import open source model from Free3D, but custom skin, armature and animation added to it
+- Custom egg model that wiggles
 
 
 
@@ -36,5 +42,5 @@ Penguin:
 - In the `run()` function, the penguin moves towards the target position at a faster speed (1.5 times the wandering speed) than in the wandering state. If the penguin gets far enough away from the target position, it changes the state back to `State.WANDERING`. 
 - The penguin uses the `lerp_angle()` function to smoothly rotate towards its target position, instead of instantly snapping to face it.
 
-#Gif of voxel game:
+# Gif of voxel game:
 ![Recording 2023-05-02 at 23 13 53](https://user-images.githubusercontent.com/56588308/235797333-4870c8b6-e2a1-48e1-98ba-23551ba77984.gif)
