@@ -4,10 +4,10 @@ We're Here to Commit Arson
 
 Polar bear model made and animated in blender
 
+Polar bear was using similar techique to this example video, getting a rough shape from extruding a single node with a skin modifer then using sculpting workspace to
+add more detail. Colored using a shader and color pattele grid to paint on indivial vertexs.
+
 ![image](https://user-images.githubusercontent.com/56588308/235794012-6559d26b-c7c3-4822-aa4e-01ac41db0d6b.png)
-
-
-
 
 
 
